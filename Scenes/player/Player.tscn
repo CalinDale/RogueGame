@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/actor.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/player/MovePause.gd" type="Script" id=3]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -11,4 +12,5 @@ texture = ExtResource( 2 )
 
 [node name="MovePause" type="Timer" parent="."]
 one_shot = true
-[connection signal="timeout" from="MovePause" to="." method="_on_MovePause_timeout"]
+script = ExtResource( 3 )
+[connection signal="timeout" from="MovePause" to="MovePause" method="_on_MovePause_timeout"]

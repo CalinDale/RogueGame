@@ -10,14 +10,9 @@ var is_moving = false
 var target_pos = Vector2()
 var target_direction = Vector2()
 
-var movePauseMax = 0.5
-var movePauseMin = 0.05
-var movePauseSpeedup = 0.1
-var movePauseDuration = 0
+onready var movePause: Timer = get_node("MovePause")
 
 var oldInputDirection = Vector2()
-
-var movePaused = false
 
 var velocity = Vector2()
 
@@ -27,34 +22,18 @@ func _ready():
 
 func _physics_process(delta):
 	var input_direction = get_input_direction()
-	
-	moveInDirection(input_direction)
+	move_in_direction(input_direction)
 
-func moveInDirection(input_direction):
+func move_in_direction(input_direction):
 	if input_direction != Vector2():
-		if !movePaused:
+		if movePause.is_stopped():
 			var target_position = Grid.request_move(self, input_direction)
 			if target_position:
 				move_to(target_position)
-			startMovePause()
+			movePause.start()
 			oldInputDirection = input_direction
 	if input_direction != oldInputDirection:
-		movePaused = false
-		movePauseDuration = movePauseMax
-
-func startMovePause():
-	movePaused = true
-	var timer = get_node("MovePause")
-	timer.wait_time = movePauseDuration
-	timer.start()
-
-func _on_MovePause_timeout():
-	if movePauseDuration > movePauseMin:
-		movePauseDuration -= movePauseSpeedup
-		if movePauseDuration < movePauseMin:
-			movePauseDuration = movePauseMin
-	movePaused = false
-
+		movePause.reset()
 
 func get_input_direction():
 	return Vector2(
