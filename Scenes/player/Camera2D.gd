@@ -17,7 +17,7 @@ func _handle_zoom_input(event: InputEventMouseButton):
 			_zoom_in()
 		elif Input.is_action_just_pressed("zoom_out"):
 			_zoom_out()
-		elif Input.is_action_just_pressed("zoom_in"):
+		elif Input.is_action_just_pressed("zoom_reset"):
 			_zoom_reset()
 
 func _zoom_in():
