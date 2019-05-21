@@ -1,16 +1,17 @@
 extends Timer
 
-var movePauseMax = 0.4
-var movePauseMin = 0.05
-var movePauseSpeedup = 0.1
+export(float) var _timer_min = 0.05
+export(float) var _speedup = 0.1
+
+var _default_wait_time
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	wait_time = movePauseMax
+	_default_wait_time = wait_time
 	pass # Replace with function body.
 	
 func reset():
-	wait_time = movePauseMax
+	wait_time = _default_wait_time
 	stop()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,7 +20,7 @@ func reset():
 
 
 func _on_MovePause_timeout():
-	if wait_time - movePauseSpeedup < movePauseMin:
-		wait_time = movePauseMin
+	if wait_time - _speedup < _timer_min:
+		wait_time = _timer_min
 	else:
-		wait_time -= movePauseSpeedup
+		wait_time -= _speedup
