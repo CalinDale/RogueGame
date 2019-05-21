@@ -7,14 +7,14 @@ func _ready():
 
 func _draw():
 	var LINE_COLOR = Color(255, 255, 255)
-	var LINE_WIDTH = 2
+	var LINE_WIDTH = 1
 	var window_size = OS.get_window_size()
 
-	for x in range(15 + 1):
+	for x in range(150 + 1):
 		var col_pos = x * grid.tile_size.x
-		var limit = 15 * grid.tile_size.y
+		var limit = 150 * grid.tile_size.y
 		draw_line(Vector2(col_pos, 0), Vector2(col_pos, limit), LINE_COLOR, LINE_WIDTH)
-	for y in range(15+ 1):
+	for y in range(150+ 1):
 		var row_pos = y * grid.tile_size.y
-		var limit = 15 * grid.tile_size.x
+		var limit = 150 * grid.tile_size.x
 		draw_line(Vector2(0, row_pos), Vector2(limit, row_pos), LINE_COLOR, LINE_WIDTH)

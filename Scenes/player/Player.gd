@@ -20,7 +20,7 @@ var velocity = Vector2()
 func _ready():
 	set_physics_process(true)
 
-func _physics_process(delta):
+func _unhandled_input(event):
 	var input_direction = get_input_direction()
 	move_in_direction(input_direction)
 

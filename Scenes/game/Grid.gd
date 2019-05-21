@@ -12,9 +12,7 @@ onready var Obstacle = preload("res://Obstacle.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-
 	setup_children()
-	
 	setup_obstacles()
 
 func get_cell_pawn(coordinates):
