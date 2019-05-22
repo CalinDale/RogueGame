@@ -16,6 +16,7 @@ region_rect = Rect2( 64, 0, 16, 16 )
 
 [node name="MovePause" type="Timer" parent="." index="1"]
 wait_time = 0.4
+one_shot = true
 script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
