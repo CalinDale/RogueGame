@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://Scenes/pawn/Pawn.gd"
 
 onready var grid = get_parent()
 onready var _move_pause: Timer = get_node("MovePause")

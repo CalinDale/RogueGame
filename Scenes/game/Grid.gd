@@ -5,7 +5,7 @@ var half_tile_size = tile_size / 2
 
 var _grid = {}
 
-onready var Obstacle = preload("res://Obstacle.tscn")
+onready var Obstacle = preload("res://Scenes/obstacle/Obstacle.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,10 +25,13 @@ func _setup_obstacles():
 			positions.append(grid_pos)
 			
 	for pos in positions:
-		var new_obstacle = Obstacle.instance()
-		add_child(new_obstacle)
-		new_obstacle.position = (map_to_world(pos) + half_tile_size)
-		_grid[pos] = new_obstacle
+		_place_scene(Obstacle, pos)
+
+func _place_scene(Scene, position):
+	var new_scene = Scene.instance()
+	add_child(new_scene)
+	new_scene.position = (map_to_world(position) + half_tile_size)
+	_grid[position] = new_scene
 
 func request_move(pawn, direction):
 	var cell_start = world_to_map(pawn.position)
