@@ -4,7 +4,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-enum COLLISION_LAYERS {NORMAL, NONE}
+enum COLLISION_LAYERS {NONE = 0, NORMAL}
 
 export(COLLISION_LAYERS) var collision = COLLISION_LAYERS.NORMAL
 
