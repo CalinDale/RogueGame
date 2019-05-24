@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Pawn
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
