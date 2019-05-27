@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/game/Grid.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/game/GridVisualizer.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/obstacle/Obstacle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/pawn/Pawn.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sprites/Lanea Zimmerman Tiny16 basic/characters.png" type="Texture" id=6]
 
 [node name="Game" type="Node"]
 
@@ -17,6 +19,7 @@ script = ExtResource( 2 )
 
 [node name="Player" parent="Grid" instance=ExtResource( 3 )]
 position = Vector2( 8, 8 )
+collision = 0
 
 [node name="Obstacle" parent="Grid" instance=ExtResource( 4 )]
 position = Vector2( 24, 8 )
@@ -45,3 +48,47 @@ position = Vector2( 24, 24 )
 
 [node name="Obstacle9" parent="Grid" instance=ExtResource( 4 )]
 position = Vector2( 24, 24 )
+
+[node name="Pawn" parent="Grid" instance=ExtResource( 5 )]
+editor/display_folded = true
+position = Vector2( 56, 8 )
+
+[node name="Sprite" parent="Grid/Pawn" index="0"]
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 160, 0, 16, 16 )
+
+[node name="Pawn2" parent="Grid" instance=ExtResource( 5 )]
+editor/display_folded = true
+position = Vector2( 88, 72 )
+
+[node name="Sprite" parent="Grid/Pawn2" index="0"]
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 160, 0, 16, 16 )
+
+[node name="Pawn3" parent="Grid" instance=ExtResource( 5 )]
+editor/display_folded = true
+position = Vector2( 136, 40 )
+
+[node name="Sprite" parent="Grid/Pawn3" index="0"]
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 160, 0, 16, 16 )
+
+[node name="Pawn4" parent="Grid" instance=ExtResource( 5 )]
+editor/display_folded = true
+position = Vector2( -72, 88 )
+
+[node name="Sprite" parent="Grid/Pawn4" index="0"]
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 160, 0, 16, 16 )
+
+[editable path="Grid/Pawn"]
+
+[editable path="Grid/Pawn2"]
+
+[editable path="Grid/Pawn3"]
+
+[editable path="Grid/Pawn4"]

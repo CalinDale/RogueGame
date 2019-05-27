@@ -2,6 +2,8 @@ extends TileMap
 
 onready var Obstacle: PackedScene = preload("res://Scenes/obstacle/Obstacle.tscn")
 
+signal pawn_clicked(pawn)
+
 var tile_size: Vector2 = get_cell_size()
 var half_tile_size: Vector2 = tile_size / 2
 
@@ -21,6 +23,16 @@ func _ready() -> void:
 	_setup_children()
 	_setup_obstacles()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("primary_click"):
+		var cell: CellData = _get_mouse_CellData()
+		if cell is CellData:
+			for n in cell.pawns:
+				if n is Pawn:
+					emit_signal("pawn_clicked", n)
+					return
+
+# Original Functions
 func _setup_children() -> void:
 	for child in get_children():
 		if child is Pawn:
@@ -58,12 +70,14 @@ func _place_scene(scene: PackedScene, position: Vector2) -> void:
 	new_scene.position = (map_to_world(position) + half_tile_size)
 	_add_pawn(position, new_scene)
 
+func _get_mouse_CellData():
+	var cell = _grid.get(world_to_map(get_global_mouse_position()))
+	if cell is CellData:
+		return cell
+
 func request_move(pawn: Pawn, direction: Vector2):
 	var cell_start: Vector2 = world_to_map(pawn.position)
-	var cell_target: Vector2 = cell_start + direction
-	# return _update_pawn_position(pawn, cell_start, cell_target)
-	# Replace following with real collision check
-	
+	var cell_target: Vector2 = cell_start + direction	
 	if !_grid.get(cell_target):
 		return _update_pawn_position(pawn, cell_start, cell_target)
 	elif pawn.collision == Pawn.COLLISION_LAYERS.NONE:
@@ -72,6 +86,7 @@ func request_move(pawn: Pawn, direction: Vector2):
 		return _update_pawn_position(pawn, cell_start, cell_target)
 	else:
 		return null
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
