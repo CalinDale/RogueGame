@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/game/Grid.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/game/GridVisualizer.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/obstacle/Obstacle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/pawn/Pawn.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sprites/Lanea Zimmerman Tiny16 basic/characters.png" type="Texture" id=6]
+[ext_resource path="res://scripts/ControllerManager.gd" type="Script" id=7]
 
 [node name="Game" type="Node"]
 
@@ -19,11 +20,34 @@ script = ExtResource( 2 )
 
 [node name="Player" parent="Grid" instance=ExtResource( 3 )]
 position = Vector2( 8, 8 )
-collision = 0
 
 [node name="Obstacle" parent="Grid" instance=ExtResource( 4 )]
 position = Vector2( 24, 8 )
 collision = 0
+
+[node name="Obstacle10" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 104, 8 )
+
+[node name="Obstacle11" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 104, -8 )
+
+[node name="Obstacle12" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 88, -8 )
+
+[node name="Obstacle13" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 72, -8 )
+
+[node name="Obstacle14" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 72, 8 )
+
+[node name="Obstacle15" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 72, 24 )
+
+[node name="Obstacle16" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 88, 24 )
+
+[node name="Obstacle17" parent="Grid" instance=ExtResource( 4 )]
+position = Vector2( 104, 24 )
 
 [node name="Obstacle2" parent="Grid" instance=ExtResource( 4 )]
 position = Vector2( 24, -8 )
@@ -50,8 +74,8 @@ position = Vector2( 24, 24 )
 position = Vector2( 24, 24 )
 
 [node name="Pawn" parent="Grid" instance=ExtResource( 5 )]
-editor/display_folded = true
-position = Vector2( 56, 8 )
+position = Vector2( 88, 8 )
+collision = 0
 
 [node name="Sprite" parent="Grid/Pawn" index="0"]
 texture = ExtResource( 6 )
@@ -84,6 +108,9 @@ position = Vector2( -72, 88 )
 texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 160, 0, 16, 16 )
+
+[node name="ControllerManager" type="Node" parent="."]
+script = ExtResource( 7 )
 
 [editable path="Grid/Pawn"]
 

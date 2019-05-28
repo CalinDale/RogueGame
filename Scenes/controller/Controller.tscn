@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/controller/Controller.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/controller/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/controller/MovePause.gd" type="Script" id=3]
+
+[node name="Controller" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+script = ExtResource( 2 )
+
+[node name="MovePause" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+script = ExtResource( 3 )
+_timer_min = 0.01
+[connection signal="timeout" from="MovePause" to="MovePause" method="_on_MovePause_timeout"]
