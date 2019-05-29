@@ -85,7 +85,9 @@ func request_move(pawn: Pawn, direction: Vector2):
 	elif _grid.get(cell_target).collision_counts[pawn.collision] == 0:
 		return _update_pawn_position(pawn, cell_start, cell_target)
 	else:
-		return null
+		for p in _grid.get(cell_target).pawns:
+			if p.collision == pawn.collision:
+				return p
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
