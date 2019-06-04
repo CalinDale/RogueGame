@@ -18,7 +18,7 @@ func check_direction(direction: Vector2) -> void:
 	var target = _grid.request_move(self, direction)
 	if target is Vector2:
 		move_to(target)
-	else:
+	elif target is Node2D:         #This should maybe be changed to pawn. not possible yet, it should be made possible.
 		target.take_damage(_damage)
 
 func move_to(target_position) -> void:

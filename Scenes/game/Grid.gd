@@ -9,6 +9,20 @@ var half_tile_size: Vector2 = tile_size / 2
 
 var _grid: Dictionary = {}
 
+class tileData:
+	var name: String = "UNNAMED_TILE"
+	var collision: bool = false
+	
+	func _init(in_name: String, in_collision: bool):
+		name = in_name
+		collision = in_collision
+
+var TILES: Dictionary = {
+		-1 : tileData.new("NULLTILE", false),
+		0 : tileData.new("cobblestone_wall", true),
+		1 : tileData.new("grass", false)
+		}
+
 class CellData:
 	var collision_counts: Array = []
 	var pawns: Array = []
@@ -77,17 +91,34 @@ func _get_mouse_CellData():
 
 func request_move(pawn: Pawn, direction: Vector2):
 	var cell_start: Vector2 = world_to_map(pawn.position)
-	var cell_target: Vector2 = cell_start + direction	
-	if !_grid.get(cell_target):
+	var cell_target: Vector2 = cell_start + direction
+	
+	#DEBUG STUFF
+	print(get_cell(cell_target.x, cell_target.y))
+	
+	print(TILES.get(get_cell(cell_target.x, cell_target.y)).name)
+	print(TILES.get(get_cell(cell_target.x, cell_target.y)).collision)
+	
+	
+	#FIRST, check if the pawn ignores collision.
+	if pawn.collision == Pawn.COLLISION_LAYERS.NONE:
 		return _update_pawn_position(pawn, cell_start, cell_target)
-	elif pawn.collision == Pawn.COLLISION_LAYERS.NONE:
-		return _update_pawn_position(pawn, cell_start, cell_target)
-	elif _grid.get(cell_target).collision_counts[pawn.collision] == 0:
-		return _update_pawn_position(pawn, cell_start, cell_target)
-	else:
-		for p in _grid.get(cell_target).pawns:
-			if p.collision == pawn.collision:
-				return p
+	
+	#SECOND, check if the tile has collision
+	if TILES.get(get_cell(cell_target.x, cell_target.y)).collision == false:
+		
+		#THIRD: if it doesn't, first check if the celldata exists.
+		if !_grid.get(cell_target):
+			return _update_pawn_position(pawn, cell_start, cell_target)
+			
+		#FINALLY check that there's no pawn on that cell that matches this pawn's collision.
+		elif _grid.get(cell_target).collision_counts[pawn.collision] == 0:
+			return _update_pawn_position(pawn, cell_start, cell_target)
+		#If there is a pawn to collide with, return it.
+		else:
+			for p in _grid.get(cell_target).pawns:
+				if p.collision == pawn.collision:
+					return p
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
