@@ -1,7 +1,7 @@
 extends Node
 
-onready var _pawn: Pawn = get_parent()
-onready var _move_pause: Timer = get_node("MovePause")
+onready var _Pawn: Pawn = get_parent()
+onready var _MovePause: Timer = get_node("MovePause")
 # onready var Controller: PackedScene = preload("res://Scenes/controller/Controller.tscn")
 
 var direction :Vector2 = Vector2()
@@ -15,12 +15,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _move_in_direction(input_direction: Vector2) -> void:
 	if input_direction != direction:
-		_move_pause.reset()
+		_MovePause.reset()
 	if input_direction != Vector2():
 		direction = input_direction
-		if _move_pause.is_stopped():
-			_move_pause.start()
-			_pawn.check_direction(direction)
+		if _MovePause.is_stopped():
+			_MovePause.start()
+			_Pawn.check_direction(direction)
 
 func _get_input_direction( event: InputEvent ) -> Vector2:
 	return Vector2(

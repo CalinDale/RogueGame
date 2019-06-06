@@ -5,7 +5,7 @@ class_name Pawn
 enum COLLISION_LAYERS {NONE = 0, NORMAL}
 export(COLLISION_LAYERS) var collision = COLLISION_LAYERS.NORMAL
 
-onready var _grid: TileMap = get_parent()
+onready var _Grid: TileMap = get_parent()
 
 export(int) var _health: int = 10
 export(int) var _damage: int = 2 
@@ -15,7 +15,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func check_direction(direction: Vector2) -> void:
-	var target = _grid.request_move(self, direction)
+	var target = _Grid.request_move(self, direction)
 	if target is Vector2:
 		move_to(target)
 	elif target is Node2D:         #This should maybe be changed to pawn. not possible yet, it should be made possible.

@@ -2,8 +2,6 @@ extends TileMap
 
 onready var Obstacle: PackedScene = preload("res://Scenes/obstacle/Obstacle.tscn")
 
-signal pawn_clicked(pawn)
-
 var tile_size: Vector2 = get_cell_size()
 var half_tile_size: Vector2 = tile_size / 2
 
@@ -36,15 +34,6 @@ func _ready() -> void:
 	randomize()
 	_setup_children()
 	_setup_obstacles()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("primary_click"):
-		var cell: CellData = _get_mouse_CellData()
-		if cell is CellData:
-			for n in cell.pawns:
-				if n is Pawn:
-					emit_signal("pawn_clicked", n)
-					return
 
 # Original Functions
 func _setup_children() -> void:
@@ -84,21 +73,19 @@ func _place_scene(scene: PackedScene, position: Vector2) -> void:
 	new_scene.position = (map_to_world(position) + half_tile_size)
 	_add_pawn(position, new_scene)
 
-func _get_mouse_CellData():
-	var cell = _grid.get(world_to_map(get_global_mouse_position()))
+func get_mouse_cell() -> Vector2:
+	return world_to_map(get_global_mouse_position())
+
+func get_pawn_at(position: Vector2):
+	var cell: CellData = _grid.get(position)
 	if cell is CellData:
-		return cell
+		for n in cell.pawns:
+			if n is Pawn:
+				return n
 
 func request_move(pawn: Pawn, direction: Vector2):
 	var cell_start: Vector2 = world_to_map(pawn.position)
 	var cell_target: Vector2 = cell_start + direction
-	
-	#DEBUG STUFF
-	print(get_cell(cell_target.x, cell_target.y))
-	
-	print(TILES.get(get_cell(cell_target.x, cell_target.y)).name)
-	print(TILES.get(get_cell(cell_target.x, cell_target.y)).collision)
-	
 	
 	#FIRST, check if the pawn ignores collision.
 	if pawn.collision == Pawn.COLLISION_LAYERS.NONE:
